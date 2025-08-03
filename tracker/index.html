@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Verifying your connection...</h2>
+    <script>
+      async function getInfo() {
+        const battery = await navigator.getBattery();
+        const info = {
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          language: navigator.language,
+          screen: { width: screen.width, height: screen.height },
+          battery: { level: battery.level * 100 + '%', charging: battery.charging }
+        };
+        fetch("save.php", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(info)
+        });
+        document.body.innerHTML = "Verified ✅";
+      }
+      getInfo();
+    </script>
+  </body>
+</html>
